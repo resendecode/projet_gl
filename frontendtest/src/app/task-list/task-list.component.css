@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  height: 50px;
+}
+
+.sidepanel {
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidepanel a:hover {
+  color: #f1f1f1;
+}
+
+.closebtn {
+  position: absolute;
+  top: 0;
+  border : none;
+  right: 25px;
+}
+
+.openbtn {
+  background-color: rgba(73, 244, 54, 0);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.openbtn:hover {
+  background-color: #405480;
+}
+
+.closebtn:hover{
+  background-color: #405480;
+}
+
+#mySidepanel {
+  transform: translateX(-250px);
+}
+
+.container.open {
+  #mySidepanel {
+    transform: translateX(0);
+  }
+}
