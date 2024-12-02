@@ -35,10 +35,9 @@ public class ProjetGlApplication {
 		userService.saveUser(usr2);
 		Project pj = new Project(1L, "test", "test", false, LocalDate.now(), LocalDate.now());
 		projectService.saveProject(pj);
-		usr2.addProject(pj);
+		userService.addProject(usr2.getUser_id(), pj.getProject_id());
 		System.out.println(pj.getParticipants());
-		userService.saveUser(usr2);
-		projectService.saveProject(pj);
+		System.out.println(userService.getUserById(2L).getName());
 	}
 
 }

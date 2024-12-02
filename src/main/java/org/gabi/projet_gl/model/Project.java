@@ -56,18 +56,7 @@ public class Project {
     this.done = done;
   }
 
-  public void addParticipant(AppUser appUser) {
-    if (!this.participants.contains(appUser)) {
-      this.participants.add(appUser);
-      appUser.addProject(this); // Prevent infinite recursion
-    }
-  }
-  public void removeParticipant(AppUser appUser) {
-    if (this.participants.contains(appUser)) {
-      this.participants.remove(appUser);
-      appUser.removeProject(this); // Prevent infinite recursion
-    }
-  }
+
 
   public Project(Long project_id,
                  String name,

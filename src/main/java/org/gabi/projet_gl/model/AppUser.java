@@ -50,21 +50,10 @@ public class AppUser {
   public void setEmail(String email) {
     this.email = email;
   }
-  public void addProject(Project project) {
-    if (!this.projects.contains(project)) {
-      this.projects.add(project);
-      project.addParticipant(this); // Prevent infinite recursion
-    }
-  }
-
-  public void removeProject(Project project) {
-    if (this.projects.contains(project)) {
-      this.projects.remove(project);
-      project.removeParticipant(this); // Prevent infinite recursion
-    }
-  }
 
   public Set<Project> getProjects() {
     return projects;
   }
+
+
 }
