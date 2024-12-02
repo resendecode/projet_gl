@@ -17,7 +17,7 @@ import {TaskService} from '../task/task.service';
 export class TaskListComponent implements OnInit{
 
   taskService : TaskService;
-  tasks ?: Task[];
+  tasks : Task[] = [];
 
   constructor(taskService : TaskService) {
     this.taskService = taskService;
@@ -28,11 +28,12 @@ export class TaskListComponent implements OnInit{
   }
 
   private getTasks() : void{
-    //this.userService.getUsersList().subscribe(data =>{
-    //  this.users = data;
+    // quand la BD marchera bien
+    //this.taskService.getTasksList().subscribe(data =>{
+    //  this.tasks = data;
     //})
-    this.tasks = [new Task("001", "Pipi", "faire pipi Impotant", "22/10/2023", "22/11/2023", true),
-                  new Task("002", "Caca", "Faire caca fort", "14/08/2024", "00/00/0000", false)];
+    this.tasks = [new Task("001", "Faire le backend", "Coder le backend de l'appli xxx", "22/10/2023", "22/11/2023", true),
+                  new Task("002", "Faire le frontend", "Coder le frontend de l'appli xxx", "14/08/2024", "00/00/0000", false)];
   }
 
 }

@@ -30,7 +30,7 @@ export class UserListComponent implements OnInit{
     //this.userService.getUsersList().subscribe(data =>{
     //  this.users = data;
     //})
-    this.users = [new User("001", "skibidi", "toiletdkisi@gmail.com"), new User("002", "mario", "chainemario@gmail.com")];
+    this.users = [new User("001", "jean", "jeanlejean@gmail.com"), new User("002", "mario", "mariobros@gmail.com")];
   }
 
 }
