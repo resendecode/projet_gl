@@ -1,5 +1,7 @@
 package org.gabi.projet_gl.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -19,7 +21,11 @@ public class Project {
       joinColumns = @JoinColumn(name = "project_id"),
       inverseJoinColumns = @JoinColumn(name = "user_id")
   )
+  @JsonBackReference
   private Set<AppUser> participants;
+  @JsonIgnore
+  @OneToMany(mappedBy = "project")
+  private Set<Task> tasks;
   private String name;
   private String description;
   private boolean done;
@@ -55,6 +61,12 @@ public class Project {
   public void setDone(boolean done) {
     this.done = done;
   }
+  public Set<Task> getTasks() {
+    return tasks;
+  }
+  public void setTasks(Set<Task> tasks) {
+    this.tasks = tasks;
+  }
 
 
 
@@ -72,6 +84,7 @@ public class Project {
     this.startDate = startDate;
     this.deadline = deadline;
     this.participants = new HashSet<>();
+    this.tasks = new HashSet<>();
   }
 
   public Project() {}

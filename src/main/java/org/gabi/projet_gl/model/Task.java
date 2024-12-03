@@ -12,6 +12,10 @@ public class Task {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private AppUser resp;
+
+  @ManyToOne
+  @JoinColumn(name = "project_id")
+  private Project project;
   public Long getId() {
     return id;
   }
@@ -42,13 +46,20 @@ public class Task {
   public void setResp(AppUser resp) {
     this.resp = resp;
   }
+  public Project getProject() {
+    return project;
+  }
+  public void setProject(Project project) {
+    this.project = project;
+  }
 
-  public Task(Long id, String title, String description, boolean done, AppUser usr) {
+  public Task(Long id, String title, String description, boolean done, AppUser usr, Project pj) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.done = done;
     this.resp = usr;
+    this.project = pj;
   }
   public Task(){};
 }

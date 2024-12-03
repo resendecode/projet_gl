@@ -1,5 +1,7 @@
 package org.gabi.projet_gl.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -14,7 +16,11 @@ public class AppUser {
   private String name;
   private String email;
 
+  @OneToMany (mappedBy = "resp")
+  @JsonIgnore
+  private Set<Task> tasks;
   @ManyToMany(mappedBy = "participants")
+  @JsonManagedReference
   private Set<Project> projects;
   // constructeur vide pour l'annotation entité
   protected AppUser() {}
@@ -22,6 +28,7 @@ public class AppUser {
     this.name = name;
     this.email = email;
     this.projects = new HashSet<>();
+    this.tasks = new HashSet<>();
   }
   @Override
   public String toString() {
@@ -49,6 +56,14 @@ public class AppUser {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public Set<Task> getTasks() {
+    return tasks;
+  }
+
+  public void setTasks(Set<Task> tasks) {
+    this.tasks = tasks;
   }
 
   public Set<Project> getProjects() {
