@@ -2,7 +2,7 @@ import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, Observable, of, tap} from 'rxjs';
 import {User} from './user';
-import {Project} from '../project/project';
+import {Project} from '../project-class/project/project';
 
 @Injectable({
   providedIn: 'root'

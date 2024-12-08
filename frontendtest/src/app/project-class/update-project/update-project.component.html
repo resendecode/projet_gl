@@ -1,0 +1,36 @@
+<div class="col-md-6 offset-md-3">
+  <h3> Update Project</h3>
+  <form (ngSubmit)="onSubmit()" >
+    <div class="form-group">
+      <label> Project name :</label>
+      <input type="text" class="form-control" id="nameP"
+             [(ngModel)]="project.nameP" name="nameP">
+    </div>
+
+    <div class="form-group">
+      <label> Start Date :</label>
+      <input type="date" class="form-control" id="startDateP"
+             [(ngModel)]="project.startDateP" name="startDateP">
+    </div>
+
+    <div class="form-group">
+      <label> Dead line :</label>
+      <input type="date" class="form-control" id="deadLineP"
+             [(ngModel)]="project.deadLineP" name="deadLineP">
+    </div>
+
+    <div class="form-group">
+      <label> Participants :</label>
+      <select class="form-control" id="participants"
+              [(ngModel)]="project.participants" name="participants">
+        <option>Mec 1</option> <! ici faudrait mettre tous les utilisateurs pour les ajouter au projet !>
+        <option>Mec 2</option>
+        <option>Mec 3</option>
+      </select>
+
+      <!puis faire un truc pour créer des taches et les ajouter au projet (celui qui est en train d'etre créé)!>
+    </div>
+
+    <button class="btn btn-success" type="submit"> Submit </button>
+  </form>
+</div>

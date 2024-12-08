@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Project} from '../project/project';
 import {NgForOf, NgIf} from '@angular/common';
 import {ProjectService} from '../project/project.service';
-import {User} from '../user/user';
-import {TaskListComponent} from '../task-list/task-list.component';
-import {Task} from '../task/task';
-import {RouterLink, RouterLinkActive} from '@angular/router';
+import {User} from '../../user/user';
+import {TaskListComponent} from '../../task-list/task-list.component';
+import {Task} from '../../task/task';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-project-list',
@@ -21,11 +21,9 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 })
 
 export class ProjectListComponent implements OnInit {
-  projectService : ProjectService;
   projects : Project[] = [];
 
-  constructor(projectService : ProjectService) {
-    this.projectService = projectService;
+  constructor(private projectService : ProjectService, private router:Router) {
   }
 
   ngOnInit() : void {
@@ -50,6 +48,10 @@ export class ProjectListComponent implements OnInit {
 
   public getProjectTasks():void {
     this.projects.forEach(p => p.tasks.forEach(t => t = new Task("001", "Faire le backend", "Coder le backend de l'appli xxx", "22/10/2023", "22/11/2023", true)));
+  }
+
+  updateProject(id : string){
+    this.router.navigate(['update-project', id]);
   }
 }
 

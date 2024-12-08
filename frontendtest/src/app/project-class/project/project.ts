@@ -1,5 +1,5 @@
-import {User} from '../user/user';
-import {Task} from '../task/task';
+import {User} from '../../user/user';
+import {Task} from '../../task/task';
 
 
 export class Project{
