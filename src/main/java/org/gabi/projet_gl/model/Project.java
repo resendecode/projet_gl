@@ -2,6 +2,7 @@ package org.gabi.projet_gl.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ public class Project {
       joinColumns = @JoinColumn(name = "project_id"),
       inverseJoinColumns = @JoinColumn(name = "user_id")
   )
-  @JsonBackReference
+  @JsonIgnore
   private Set<AppUser> participants;
   @JsonIgnore
   @OneToMany(mappedBy = "project")

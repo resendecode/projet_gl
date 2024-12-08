@@ -12,7 +12,6 @@ public class Task {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private AppUser resp;
-
   @ManyToOne
   @JoinColumn(name = "project_id")
   private Project project;

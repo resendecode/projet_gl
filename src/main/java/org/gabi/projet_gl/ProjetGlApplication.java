@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import org.gabi.projet_gl.model.AppUser;
 import org.gabi.projet_gl.model.Project;
 import org.gabi.projet_gl.model.Task;
+import org.gabi.projet_gl.model.UserRole;
 import org.gabi.projet_gl.service.ProjectService;
 import org.gabi.projet_gl.service.TaskService;
 import org.gabi.projet_gl.service.UserService;
@@ -30,17 +31,17 @@ public class ProjetGlApplication {
 
 	@PostConstruct
 	public void init() {
-		AppUser usr = new AppUser("your_username", "your_email@gigi.com");
+		AppUser usr = new AppUser("your_username", "your_email@gigi.com", "pass123", UserRole.ADMIN);
 		//ceci marche. Le userService marche correctement
 		userService.saveUser(usr);
 
 
-		AppUser usr2 = new AppUser("snoop", "snoop_dogg@shkex.fum");
+		AppUser usr2 = new AppUser("snoop", "snoop_dogg@shkex.fum","pasdor", UserRole.USER);
 		userService.saveUser(usr2);
 		Project pj = new Project(1L, "test", "test", false, LocalDate.now(), LocalDate.now());
 		Task tsk = new Task(1L, "test", "test", false, usr, pj);
 		projectService.saveProject(pj);
-		taskService.saveTask(tsk, usr, pj);
+		taskService.saveTask(tsk, usr.getUser_id(), pj.getProject_id());
 		userService.addProject(usr2.getUser_id(), pj.getProject_id());
 		userService.addTask(usr2.getUser_id(), tsk.getId());
 		System.out.println(pj.getParticipants());

@@ -32,6 +32,7 @@ public class ProjectService {
   public Project getProjectById(Long id) {
     return projectRepository.findById(id).orElse(null);
   }
+  //todo: peut être enlever méthode jamais utilisé
   @Transactional
   public Project addParticipant(Long projectId, Long appUserId) {
     Project project = projectRepository.findById(projectId)
