@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {catchError, Observable, of} from 'rxjs';
 import {Task} from './task';
+import {Project} from '../project/project';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,15 @@ import {Task} from './task';
 export class TaskService {
 
   private readonly baseURL : string = "http://localhost:8080/tasks";
-  private HttpClient: any;
-  constructor(private http : HttpClient) { }
+  private http = inject(HttpClient);
 
-  getTaskList() : Observable<Task[]>{
-    return this.HttpClient.get(`${this.baseURL}`);
+  getTaskList() : Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.baseURL}`).pipe(
+      catchError(error => {
+        console.error('Error fetching tasks:', error);
+        // Handle the error, e.g., return an empty array or display an error message
+        return of([]);
+      })
+    );
   }
 }

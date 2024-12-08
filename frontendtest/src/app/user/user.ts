@@ -1,32 +1,32 @@
 export class User {
-  private user_id : string;
-  private name : string;
-  private email : string;
+  private _user_id : string;
+  private _name : string;
+  private _email : string;
 
   constructor(user_id : string, name : string, email : string) {
-    this.user_id = user_id;
-    this.name = name;
-    this.email = email;
+    this._user_id = user_id;
+    this._name = name;
+    this._email = email;
   }
 
-  getUserId() : string{
+  get user_id() : string{
     return this.user_id;
   }
-  setUserId(user_id : string) : void{
-    this.user_id = user_id;
+  set user_id(user_id : string){
+    this._user_id = user_id;
   }
 
-  getUName() : string{
-    return this.name;
+  get name() : string{
+    return this._name;
   }
-  setUName(name : string) : void{
-    this.name = name;
+  setUName(name : string){
+    this._name = name;
   }
 
-  getEmail() : string{
-    return this.email;
+  get email() : string{
+    return this._email;
   }
-  setEmail(email : string) : void{
-    this.email = email;
+  set email(email : string){
+    this._email = email;
   }
 }

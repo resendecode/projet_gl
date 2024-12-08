@@ -2,16 +2,16 @@
 <table class = "table table-striped">
   <thead>
     <tr>
-      <th>ID </th>
+      <th> ID </th>
       <th> First Name </th>
       <th> Email </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let user of users">
-      <td>{{user.getUserId()}}</td>
-      <td>{{user.getUName()}}</td>
-      <td>{{user.getEmail()}}</td>
+      <td>{{user.user_id}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
     </tr>
   </tbody>
 

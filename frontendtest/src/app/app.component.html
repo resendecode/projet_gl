@@ -1,93 +1,19 @@
-<h1 class ="text-center"> {{title}}</h1>
-<app-project-list></app-project-list>
-<app-task-list></app-task-list>
+
 <div class="container">
-  <table >
-    <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col"> Lundi </th>
-      <th scope="col"> Mardi </th>
-      <th scope="col"> Mercredi </th>
-      <th scope="col"> Jeudi </th>
-      <th scope="col"> Vendredi </th>
-      <th scope="col"> Samedi </th>
-      <th scope="col"> Dimanche </th>
-    </tr>
-    </thead>
+  <div id="projectListSide" class="sidepanel">
+    <div id="divAddPjBtn">
+      <button id="addPjBtn" routerLink="create-project" routerLinkActive="active" class="nav-link"> Add a project </button>
+    </div>
+    <ul> Projects :
+        <app-project-list></app-project-list>
+    </ul>
+  </div>
+</div>
 
-    <tbody>
-    <tr>
-      <th scope="row"> 0:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 1:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 2:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 3:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 4:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 5:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 6:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 7:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 8:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 9:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 10:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 12:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 13:00 </th>
-    </tr>
-    <tr>
-      <th scope="row"> 14:00</th>
-    </tr>
-    <tr>
-      <th scope="row"> 15:00</th>
-    </tr>
-    <tr>
-      <th scope="row"> 16:00</th>
-    </tr>
-    <tr>
-      <th scope="row"> 17:00</th>
-    </tr>
-    <tr>
-      <th scope="row"> 18:00</th>
-    </tr>
-    <tr>
-      <th scope="row"> 19:00</th>
-    </tr>
-    <tr>
-      <th scope="row"> 20:00</th>
-    </tr>
-    <tr>
-      <th scope="row"> 21:00</th>
-    </tr>
-    <tr>
-      <th scope="row"> 22:00</th>
-    </tr>
-    <tr>
-      <th scope="row"> 23:00</th>
-    </tr>
-    </tbody>
+<h1 class ="text-center"> {{title}}</h1>
 
-  </table>
+<div class="container">
+  <router-outlet></router-outlet>
   <app-user-list></app-user-list>
 </div>
+

@@ -1,59 +1,64 @@
-export class Task {
-  private task_id : string;
-  private title : string;
-  private description : string;
-  private startDate : string;
-  private endDate : string;
-  private done : boolean;
+export class Task{
+  private _task_id : string;
+  private _title : string;
+  private _description : string;
+  private _startDate : string;
+  private _endDate : string;
+  private _done : boolean;
 
-  constructor(task_id : string, title : string, description : string, startDate : string, endDate : string, done : boolean) {
-    this.task_id = task_id;
-    this.title = title;
-    this.description = description;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.done = done;
-  }
-
-  getTaskId() : string{
-    return this.task_id;
-  }
-  setTaskId(task_id : string) : void{
-    this.task_id = task_id;
+  constructor(task_id : string,
+              title : string,
+              description : string,
+              startDate : string,
+              endDate : string,
+              done : boolean) {
+    this._task_id = task_id;
+    this._title = title;
+    this._description = description;
+    this._startDate = startDate;
+    this._endDate = endDate;
+    this._done = done;
   }
 
-  getTitle() : string{
-    return this.title;
+  get task_id() : string{
+    return this._task_id;
   }
-  setTitle(title : string) : void{
-    this.title = title;
-  }
-
-  getDescr() : string{
-    return this.description;
-  }
-  setDescr(description : string) : void{
-    this.description = description;
+  set task_id(task_id : string){
+    this._task_id = task_id;
   }
 
-  getStartDate() : string{
-    return this.startDate;
+  get title() : string{
+    return this._title;
   }
-  setStartDate(startDate : string) : void{
-    this.startDate = startDate;
-  }
-
-  getEndDate() : string{
-    return this.endDate;
-  }
-  setEndDate(endDate : string) : void{
-    this.endDate = endDate;
+  set title(title : string){
+    this._title = title;
   }
 
-  getDone() : boolean{
-    return this.done;
+  get description() : string{
+    return this._description;
   }
-  setDone(done : boolean) : void{
-    this.done = done;
+  set description(description : string){
+    this._description = description;
+  }
+
+  get startDate() : string{
+    return this._startDate;
+  }
+  set startDate(startDate : string){
+    this._startDate = startDate;
+  }
+
+  get endDate() : string{
+    return this._endDate;
+  }
+  set endDate(endDate : string){
+    this._endDate = endDate;
+  }
+
+  get done() : boolean{
+    return this._done;
+  }
+  set done(done : boolean){
+    this._done = done;
   }
 }

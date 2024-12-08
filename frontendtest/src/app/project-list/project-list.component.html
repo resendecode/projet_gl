@@ -1,0 +1,8 @@
+<menu *ngFor="let project of projects">
+  <li *ngFor="let task of project.tasks">
+    <p><strong>Titre :</strong> {{ task.title }}</p>
+    <p><strong>Description :</strong> {{ task.description }}</p>
+    <p><strong>Date de début :</strong> {{ task.startDate }}</p>
+    <p *ngIf="task.done"><strong>Date de fin :</strong> {{ task.endDate }}</p>
+  </li>
+</menu>
