@@ -10,6 +10,8 @@ import org.gabi.projet_gl.repo.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+@CrossOrigin
 @RestController
 public class TaskController {
 

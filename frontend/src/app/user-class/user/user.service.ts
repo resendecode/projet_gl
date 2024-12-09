@@ -1,0 +1,39 @@
+import {inject, Injectable, signal} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {catchError, Observable, of, tap} from 'rxjs';
+import {User} from './user';
+import {Project} from '../../project-class/project/project';
+import {Task} from '../../task-class/task/task';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+
+  private readonly baseURL : string = "http://localhost:8080/users";
+  private http = inject(HttpClient);
+
+  getUserList(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseURL}`).pipe(
+      catchError(error => {
+        console.error('Error fetching users:', error);
+        // Handle the error, e.g., return an empty array or display an error message
+        return of([]);
+      })
+    );
+  }
+  public createUser(user:User): Observable<Object>{
+    return this.http.post(`${this.baseURL}`, user);
+  }
+
+  public getUserByID(id:string) : Observable<User>{
+    return this.http.get<User>(`${this.baseURL}/${id}`);
+  }
+
+  public updateUser(id: string, user : User):Observable<Object> {
+    return this.http.put(`${this.baseURL}/${id}`, user);
+  }
+
+  public deleteUser(id : string ):Observable<Object>{
+    return this.http.delete(`${this.baseURL}/${id}`);
+  }}

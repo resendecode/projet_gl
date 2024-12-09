@@ -1,0 +1,12 @@
+table {
+  display: flow;
+  border: 1px solid;
+  width: 80%;
+}
+
+tr {
+  border : 1px solid;
+  text-align: center;
+  width: 10%;
+}
+
