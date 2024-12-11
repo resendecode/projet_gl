@@ -3,12 +3,11 @@ import {Task} from '../../task-class/task/task';
 
 
 export class Project{
-
   private _project_id : string = "";
   private _name : string = "New Project";
   private _done : boolean = false;
-  private _start_date : string = "00/00/0000";
-  private _deadline : string = "00/00/0000";
+  private _start_date : Date = new Date("0000-00-00");
+  private _deadline : Date = new Date("0000-00-00");
   private _description : string = "";
   private _participants : User[] = [];
   private _tasks : Task[] = [];
@@ -39,17 +38,17 @@ export class Project{
     this._done = done;
   }
 
-  get start_date() : string{
+  get start_date() : Date{
     return this._start_date;
   }
-  set start_date(startDate : string){
+  set start_date(startDate : Date){
     this._start_date = startDate;
   }
 
-  get deadline() : string{
+  get deadline() : Date{
     return this._deadline;
   }
-  set deadline(deadLine : string){
+  set deadline(deadLine : Date){
     this._deadline = deadLine;
   }
 

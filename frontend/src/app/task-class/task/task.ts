@@ -1,7 +1,9 @@
 export class Task{
+
   private _task_id : string = "";
   private _title : string = "";
   private _description : string = "";
+  private _project_id : string = "";
   private _done : boolean = false;
 
   constructor() {
@@ -33,5 +35,12 @@ export class Task{
   }
   set done(done : boolean){
     this._done = done;
+  }
+  get project_id(): string {
+    return this._project_id;
+  }
+
+  set project_id(value: string) {
+    this._project_id = value;
   }
 }

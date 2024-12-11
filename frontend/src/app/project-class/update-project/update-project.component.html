@@ -8,6 +8,12 @@
     </div>
 
     <div class="form-group">
+      <label> Project description :</label>
+      <input type="text" class="form-control" id="description"
+             [(ngModel)]="project.description" name="description">
+    </div>
+
+    <div class="form-group">
       <label> Start Date :</label>
       <input type="date" class="form-control" id="start_date"
              [(ngModel)]="project.start_date" name="start_date">
@@ -23,7 +29,7 @@
       <label> Participants :</label>
       <select class="form-control" id="participants"
               [(ngModel)]="project.participants" name="participants">
-        <option>Mec 1</option> <! ici faudrait mettre tous les utilisateurs pour les ajouter au projet !>
+        <option>Mec 1</option> <! ici faudrait mettre tous les utilisateurs pour les ajouter au projet (participants.push()?) !>
         <option>Mec 2</option>
         <option>Mec 3</option>
       </select>

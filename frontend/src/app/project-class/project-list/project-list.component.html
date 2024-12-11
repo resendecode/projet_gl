@@ -1,16 +1,15 @@
-<button id="addPjBtn" routerLink="create-project" routerLinkActive="active" class="btn btn-success"> Create</button>
 <menu *ngFor="let project of projects">
 
   <li>
     <strong>Projet : </strong> {{ project.name }}
+    <button id="addPjBtn" routerLink="create-project" routerLinkActive="active" class="btn btn-success">➕</button>
 
-
-    <button (click)="updateProject(project.project_id)" class="btn btn-info"> Update</button>
-    <button (click)="deleteProject(project.project_id)" class="btn btn-danger"> Delete</button>
+      <button (click)="updateProject(project.project_id)" class="btn btn-info">✏</button>
+      <button (click)="deleteProject(project.project_id)" class="btn btn-danger">🗑</button>
   </li>
+    <ul><strong>Description :</strong> {{ project.description }}</ul>
     <ul><strong>Date de debut :</strong> {{ project.start_date }}</ul>
     <ul><strong>Deadline :</strong> {{ project.deadline }}</ul>
-    <ul><strong>Description :</strong>{{project.description}}</ul>
 
     <ul><strong> Liste des taches :</strong></ul>
     <li *ngFor="let task of project.tasks">

@@ -22,21 +22,25 @@ export class CreateProjectComponent implements OnInit{
   ngOnInit():void {
   }
 
+  // lorque le formulaire est rempli, enregistrer le projet et retourner à la page principale
   onSubmit(){
     console.log(this.project);
     this.saveProject();
     this.goToProjectList();
   }
 
+  // sauvegarder un projet dans la BD
   saveProject(){
     this.projectService.createProject(this.project).subscribe(data =>{
         console.log(data);
-        this.goToProjectList()
+        this.goToProjectList();
+        this.projectService.getProjectList();
       },
         error => console.log(error)
     );
   }
 
+  // retourner à la page principale
   goToProjectList(){
     this.router.navigate(['/projects']);
   }
