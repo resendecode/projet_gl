@@ -16,11 +16,9 @@ import {UserService} from '../user/user.service';
 
 export class UserListComponent implements OnInit{
 
-  userService : UserService
-  users ?: User[];
+  users : User[] = [];
 
-  constructor(userService : UserService) {
-    this.userService = userService;
+  constructor( private userService: UserService) {
   }
 
   ngOnInit() : void {
@@ -35,7 +33,6 @@ export class UserListComponent implements OnInit{
         console.error('Error fetching users:', error);
         // Handle the error, e.g., display an error message to the user
       });
-    //this.users = [new User("001", "jean", "jeanlejean@gmail.com"), new User("002", "mario", "mariobros@gmail.com")];
   }
 
 }

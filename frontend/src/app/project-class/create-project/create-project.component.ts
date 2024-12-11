@@ -16,7 +16,8 @@ import {Router} from '@angular/router';
 export class CreateProjectComponent implements OnInit{
   project : Project = new Project();
 
-  constructor(private projectService : ProjectService, private router : Router) {
+  constructor(private projectService : ProjectService,
+              private router : Router) {
   }
 
   ngOnInit():void {
@@ -42,11 +43,11 @@ export class CreateProjectComponent implements OnInit{
     };
   }
 
-  // todo : sauvegarder le projet crée
+  // sauvegarder le projet crée
   saveProject() {
-    const userPayload = this.toPayload();
+    const projectPayload = this.toPayload();
 
-    this.projectService.createProject(userPayload).subscribe(
+    this.projectService.createProject(projectPayload).subscribe(
       data => {
         console.log("Projet créé avec succès :", data);
         this.goToProjectList();

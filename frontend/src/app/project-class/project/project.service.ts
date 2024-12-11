@@ -23,7 +23,7 @@ export class ProjectService {
     );
   }
 
-  // todo : creer un projet (probleme avec start_date (?))
+  // creer un projet
   public createProject(project:Project): Observable<Object>{
     return this.http.post<Project>(`${this.baseURLp}`, project);
   }
@@ -33,7 +33,7 @@ export class ProjectService {
     return this.http.get<Project>(`${this.baseURLp}/${id}`);
   }
 
-  // todo : mettre à jour un projet (probleme avec les dates)
+  //mettre à jour un projet
   public updateProject(project : Project):Observable<any> {
     return this.http.put<Project>(`${this.baseURLp}/${project.project_id}`, project);
   }

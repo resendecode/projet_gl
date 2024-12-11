@@ -21,18 +21,28 @@ export class TaskService {
       })
     );
   }
+
+  // todo : creer une tâche (marche pas pour l'instant)
   public createTask(task:Task): Observable<Object>{
     return this.http.post(`${this.baseURL}`, task);
   }
 
+  // obtenir une tâche par son id
   public getTaskByID(id:string) : Observable<Task>{
     return this.http.get<Task>(`${this.baseURL}/${id}`);
   }
 
+  // obtenir les tâches d'un projet
+  public getTasksByProjectId(projectId: string): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.baseURL}?projectId=${projectId}`);
+  }
+
+  // todo : mettre à jour une tâche
   public updateTask(id: string, task : Task):Observable<Object> {
     return this.http.put(`${this.baseURL}/${id}`, task);
   }
 
+  // todo : supprimer une tâche
   public deleteTask(id : string ):Observable<Object>{
     return this.http.delete(`${this.baseURL}/${id}`);
   }

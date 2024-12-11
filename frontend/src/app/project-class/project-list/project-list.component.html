@@ -1,27 +1,35 @@
+<button id="addPjBtn" routerLink="create-project" routerLinkActive="active" class="btn btn-success"> Create a project ➕</button>
 <menu *ngFor="let project of projects">
 
   <li>
     <strong>Projet : </strong> {{ project.name }}
-    <button id="addPjBtn" routerLink="create-project" routerLinkActive="active" class="btn btn-success">➕</button>
-
-      <button (click)="updateProject(project.project_id)" class="btn btn-info">✏</button>
-      <button (click)="deleteProject(project.project_id)" class="btn btn-danger">🗑</button>
+    <p *ngIf="project.done">Done ✅</p>
+    <p *ngIf="!project.done">Not done yet ❌</p>
+    <button (click)="updateProject(project.project_id)" class="btn btn-info">✏</button>
+    <button (click)="deleteProject(project.project_id)" class="btn btn-danger">🗑</button>
   </li>
     <ul><strong>Description :</strong> {{ project.description }}</ul>
     <ul><strong>Start date :</strong> {{ project.startDate }}</ul>
     <ul><strong>Deadline :</strong> {{ project.deadline }}</ul>
 
-    <ul><strong> List of the project's tasks :</strong></ul>
-    <li *ngFor="let task of project.tasks">
-      <p><strong>Title :</strong> {{ task.title }}</p>
-      <p><strong>Description :</strong> {{ task.description }}</p>
-    </li>
+  <ol><strong> List of the project's tasks :</strong>
+    <button id="addTkBtn" routerLink="create-task" routerLinkActive="active" class="btn btn-success">➕</button>
+    <ul *ngFor="let task of project.tasks">
+        <ul>
+          <strong>Title :</strong> {{ task.title }}
+          <p *ngIf="task.done">Done ✅</p>
+          <p *ngIf="!task.done">Not done yet ❌</p>
+          <button (click)="updateTask(task.id)" class="btn btn-info">✏</button>
+          <button (click)="deleteTask(task.id)" class="btn btn-danger">🗑</button>
+        </ul>
+        <ul><strong>Description :</strong> {{ task.description }}</ul>
 
-    <ul><strong> List of the project's participants :</strong></ul>
-
+    </ul>
+  </ol>
+  <ol><strong> List of the project's participants :</strong>
     <li *ngFor="let u of project.participants">
       <p><strong>Name :</strong> {{ u.name }}</p>
       <p><strong>Email :</strong> {{ u.email }}</p>
     </li>
-
+  </ol>
 </menu>

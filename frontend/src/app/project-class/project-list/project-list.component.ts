@@ -1,15 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {Project} from '../project/project';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {ProjectService} from '../project/project.service';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {TaskService} from '../../task-class/task/task.service';
+import {Task} from '../../task-class/task/task'
 
 @Component({
   selector: 'app-project-list',
   imports: [
     NgForOf,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NgIf
   ],
   providers : [ProjectService],
   templateUrl: './project-list.component.html',
@@ -19,13 +22,19 @@ import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 export class ProjectListComponent implements OnInit {
   projects : Project[] = [];
 
-  constructor(private projectService : ProjectService, private router:Router) {
+  constructor(private projectService : ProjectService,
+              private router:Router,
+              private taskService : TaskService) {
   }
 
   // à l'initialisation obtenir les projets et toutes leurs infos
   ngOnInit() : void {
+    // récuperer tous les projets
     this.getProjects();
-    this.getProjectTasks();
+
+    // récuperer toutes les tâches de chaque projet
+    this.getAllProjectTasks();
+
     this.getProjectParticipants();
   }
 
@@ -42,8 +51,22 @@ export class ProjectListComponent implements OnInit {
   }
 
   // todo : obtenir toutes les taches de chaque projet (peut etre pas ici mais dans taskService?)
-  public getProjectTasks():void {
-    this.projects.forEach(p => p.tasks);
+  getProjectTasks(project : Project): void {
+    this.taskService.getTasksByProjectId(project.project_id).subscribe(
+      data => {
+        project.tasks = data; // Assignation des tâches récupérées
+        console.log('Tâches récupérées :', project.tasks);
+      },
+      error => {
+        console.error('Erreur lors de la récupération des tâches :', error);
+      }
+    );
+  }
+
+  public getAllProjectTasks(){
+    for(const project of this.projects) {
+      this.getProjectTasks(project);
+    }
   }
 
   //todo : obtenir tout les participants de chaque projet
@@ -62,6 +85,16 @@ export class ProjectListComponent implements OnInit {
       console.log(data);
       this.getProjects();
     })
+  }
+
+  //mettre à jour une tâche du projet
+  public updateTask(id : string){
+    this.router.navigate(['update-task', id]);
+  }
+
+  //supprimer une tache
+  public deleteTask(id : string){
+    this.taskService.deleteTask(id);
   }
 }
 

@@ -23,7 +23,7 @@ export class UserService {
     );
   }
 
-  // todo : créer un utilsateur (créer un compte)
+  // créer un utilsateur (créer un compte)
   public createUser(user:User): Observable<Object>{
     return this.http.post<User>(this.baseURL, user);
   }
@@ -42,7 +42,6 @@ export class UserService {
   public updateUser(id: string, user : User):Observable<Object> {
     return this.http.put(`${this.baseURL}/${id}`, user);
   }
-
 
   // todo : supprimer un utilisateur (supprimer son compte)
   public deleteUser(id : string ):Observable<Object>{

@@ -19,7 +19,8 @@ import { Task } from '../../task-class/task/task';
 export class CreateUserComponent implements OnInit{
   user : User = new User();
 
-  constructor(private userService : UserService, private router : Router) {
+  constructor(private userService : UserService,
+              private router : Router) {
   }
 
   ngOnInit():void {
@@ -36,7 +37,7 @@ export class CreateUserComponent implements OnInit{
 
   }
 
-  // verifier si l'utilisateur n'existe pas déjà
+  // todo : verifier si l'utilisateur n'existe pas déjà
   checkCreateSubmit() : boolean{
     let usersTemp : Observable<User[]> = this.userService.getUserList();
     let rep : boolean = false;
