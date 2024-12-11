@@ -4,6 +4,9 @@ import {User} from '../user/user';
 import {UserService} from '../user/user.service';
 import {FormsModule} from '@angular/forms';
 import {find, Observable} from 'rxjs';
+import {UserRole} from '../user/UserRole';
+import {Project} from '../../project-class/project/project';
+import { Task } from '../../task-class/task/task';
 
 @Component({
   selector: 'app-create-user',
@@ -46,15 +49,33 @@ export class CreateUserComponent implements OnInit{
     return rep;
   }
 
-  // todo : sauvegarder l'utilisateur crée (probleme sur le createUser ? tout est null dans la BD)
-  saveUser(){
-    this.userService.createUser(this.user).subscribe(data =>{
-        console.log(data);
+  toPayload(): any {
+    return {
+      user_id: this.user.user_id,
+      name: this.user.name,
+      email: this.user.email,
+      password: this.user.password,
+      role: this.user.role,
+      projects: [], // Toujours vide
+      tasks: []     // Toujours vide
+    };
+  }
+
+  // todo : sauvegarder l'utilisateur crée (pb mdp null)
+  saveUser() {
+    const userPayload = this.toPayload();
+
+    this.userService.createUser(userPayload).subscribe(
+      data => {
+        console.log("Utilisateur créé avec succès :", data);
         this.goToProjectList();
       },
-      error => console.log(error)
+      error => {
+        console.error("Erreur lors de la création de l'utilisateur :", error);
+      }
     );
   }
+
 
   goToProjectList(){
     this.router.navigate(['/projects']);

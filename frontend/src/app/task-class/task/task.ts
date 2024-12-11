@@ -1,6 +1,6 @@
 export class Task{
 
-  private _task_id : string = "";
+  private _id : string = "";
   private _title : string = "";
   private _description : string = "";
   private _project_id : string = "";
@@ -9,11 +9,11 @@ export class Task{
   constructor() {
   }
 
-  get task_id() : string{
-    return this._task_id;
+  get id() : string{
+    return this._id;
   }
-  set task_id(task_id : string){
-    this._task_id = task_id;
+  set id(task_id : string){
+    this._id = task_id;
   }
 
   get title() : string{

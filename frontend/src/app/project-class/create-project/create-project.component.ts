@@ -29,14 +29,31 @@ export class CreateProjectComponent implements OnInit{
     this.goToProjectList();
   }
 
-  // sauvegarder un projet dans la BD
-  saveProject(){
-    this.projectService.createProject(this.project).subscribe(data =>{
-        console.log(data);
+  toPayload(): any {
+    return {
+      project_id: this.project.project_id,
+      name: this.project.name,
+      done : this.project.done,
+      start_date : this.project.startDate,
+      deadline : this.project.deadline,
+      description : this.project.description,
+      participants : [],
+      tasks : [],
+    };
+  }
+
+  // todo : sauvegarder le projet crée
+  saveProject() {
+    const userPayload = this.toPayload();
+
+    this.projectService.createProject(userPayload).subscribe(
+      data => {
+        console.log("Projet créé avec succès :", data);
         this.goToProjectList();
-        this.projectService.getProjectList();
       },
-        error => console.log(error)
+      error => {
+        console.error("Erreur lors de la création du projet :", error);
+      }
     );
   }
 

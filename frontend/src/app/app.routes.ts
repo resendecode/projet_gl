@@ -8,9 +8,9 @@ import {CreateUserComponent} from './user-class/create-user/create-user.componen
 import {LandpageComponent} from '../landpage/landpage.component';
 
 export const routes: Routes = [
-  {path: 'projects', component:ProjectListComponent, canActivate: [AuthGuard] },
-  {path : 'projects/create-project', component:CreateProjectComponent, canActivate: [AuthGuard] },
-  {path : 'update-project/:id', component:UpdateProjectComponent, canActivate: [AuthGuard] },
+  {path: 'projects', component:ProjectListComponent}, // rajouter canActivate: [AuthGuard]
+  {path : 'projects/create-project', component:CreateProjectComponent}, //idem
+  {path : 'update-project/:id', component:UpdateProjectComponent}, // idem
   {path : 'auth/login', component:LoginComponent},
   {path : 'create-user', component:CreateUserComponent},
   {path : '', component:LandpageComponent}

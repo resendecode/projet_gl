@@ -6,7 +6,7 @@ export class Project{
   private _project_id : string = "";
   private _name : string = "New Project";
   private _done : boolean = false;
-  private _start_date : Date = new Date("0000-00-00");
+  private _startDate : Date = new Date("0000-00-00");
   private _deadline : Date = new Date("0000-00-00");
   private _description : string = "";
   private _participants : User[] = [];
@@ -38,11 +38,11 @@ export class Project{
     this._done = done;
   }
 
-  get start_date() : Date{
-    return this._start_date;
+  get startDate() : Date{
+    return this._startDate;
   }
-  set start_date(startDate : Date){
-    this._start_date = startDate;
+  set startDate(startDate : Date){
+    this._startDate = startDate;
   }
 
   get deadline() : Date{

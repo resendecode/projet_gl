@@ -8,9 +8,15 @@
   </div>
 
   <div class="form-group">
+    <label> Description :</label>
+    <input type="text" class="form-control" id="description"
+           [(ngModel)]="project.description" name="description">
+  </div>
+
+  <div class="form-group">
     <label> Start Date :</label>
     <input type="date" class="form-control" id="startDateP"
-           [(ngModel)]="project.start_date" name="startDateP">
+           [(ngModel)]="project.startDate" name="startDateP">
   </div>
 
   <div class="form-group">

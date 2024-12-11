@@ -25,7 +25,7 @@ export class ProjectService {
 
   // todo : creer un projet (probleme avec start_date (?))
   public createProject(project:Project): Observable<Object>{
-    return this.http.post(`${this.baseURLp}`, project);
+    return this.http.post<Project>(`${this.baseURLp}`, project);
   }
 
   // obtenir un projet par son ID
