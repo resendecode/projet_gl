@@ -1,5 +1,7 @@
 package org.gabi.projet_gl.model;
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
+
 
 @Entity
 public class Task {

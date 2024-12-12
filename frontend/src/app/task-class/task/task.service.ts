@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {catchError, Observable, of} from 'rxjs';
+import {catchError, Observable, of, tap, throwError} from 'rxjs';
 import {Task} from './task';
 import {Project} from '../../project-class/project/project';
 
@@ -23,8 +23,13 @@ export class TaskService {
   }
 
   // todo : creer une tâche (marche pas pour l'instant)
-  public createTask(task:Task): Observable<Object>{
-    return this.http.post(`${this.baseURL}`, task);
+  public createTask(task:Task): Observable<any>{
+    return this.http.post<any>(`${this.baseURL}`, task).pipe(
+      catchError((error) => {
+        console.error("Erreur dans createTask :", error);
+        return throwError(error);
+      })
+    );
   }
 
   // obtenir une tâche par son id
@@ -46,4 +51,5 @@ export class TaskService {
   public deleteTask(id : string ):Observable<Object>{
     return this.http.delete(`${this.baseURL}/${id}`);
   }
+
 }

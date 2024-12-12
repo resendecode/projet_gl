@@ -24,6 +24,7 @@ public class TaskController {
     this.userRepository = userRepository;
     this.projectRepository = projectRepository;
   }
+
   @GetMapping("/tasks")
   List<Task> all() {
     return repository.findAll();
@@ -34,6 +35,7 @@ public class TaskController {
     return repository.findById(id)
         .orElse(null);
   }
+
   @PostMapping("/tasks")
   Task newTask(@RequestBody TaskDTO taskDTO) {
     Task newTask = new Task();
@@ -47,6 +49,7 @@ public class TaskController {
     newTask.setProject(pj);
     return repository.save(newTask);
   }
+
   @PutMapping("/tasks/{id}")
   Task replaceTask(@RequestBody Task newTask, @PathVariable Long id) {
     return repository.findById(id)
@@ -59,5 +62,10 @@ public class TaskController {
           newTask.setId(id);
           return repository.save(newTask);
         });
+  }
+
+  @DeleteMapping("/tasks/{id}")
+  void deleteTask(@PathVariable Long id) {
+    repository.deleteById(id);
   }
 }

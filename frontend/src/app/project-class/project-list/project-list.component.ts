@@ -5,6 +5,9 @@ import {ProjectService} from '../project/project.service';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {TaskService} from '../../task-class/task/task.service';
 import {Task} from '../../task-class/task/task'
+import {UserService} from '../../user-class/user/user.service';
+import {catchError, forkJoin, map, Observable, of} from 'rxjs';
+import {User} from '../../user-class/user/user';
 
 @Component({
   selector: 'app-project-list',
@@ -24,7 +27,8 @@ export class ProjectListComponent implements OnInit {
 
   constructor(private projectService : ProjectService,
               private router:Router,
-              private taskService : TaskService) {
+              private taskService : TaskService,
+              private userService : UserService) {
   }
 
   // à l'initialisation obtenir les projets et toutes leurs infos
@@ -35,15 +39,15 @@ export class ProjectListComponent implements OnInit {
     // récuperer toutes les tâches de chaque projet
     this.getAllProjectTasks();
 
-    this.getProjectParticipants();
+    this.getProjectsWithParticipants();
+    console.log("projets :", this.projects);
   }
 
-  // obtenir tout les projects
+  // obtenir tous les projects
   public getProjects() : void{
     this.projectService.getProjectList()
       .subscribe(projects => {
         this.projects = projects;
-        console.log(this.projects);
       }, error => {
         console.error('Error fetching projects:', error);
         // Handle the error, e.g., display an error message to the user
@@ -51,7 +55,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   // todo : obtenir toutes les taches de chaque projet (peut etre pas ici mais dans taskService?)
-  getProjectTasks(project : Project): void {
+  public getProjectTasks(project : Project): void {
     this.taskService.getTasksByProjectId(project.project_id).subscribe(
       data => {
         project.tasks = data; // Assignation des tâches récupérées
@@ -69,10 +73,45 @@ export class ProjectListComponent implements OnInit {
     }
   }
 
-  //todo : obtenir tout les participants de chaque projet
-  public getProjectParticipants(){
-    this.projects.forEach(p => p.participants);
-}
+  public getProjectsWithParticipants(): void {
+    this.enrichProjectsWithParticipants()
+      .subscribe(projects => {
+        this.projects = projects;
+        console.log('Projets enrichis avec participants :', this.projects);
+      }, error => {
+        console.error('Erreur lors de la récupération des projets enrichis :', error);
+      });
+  }
+
+  // obtenir tous les participants de chaque projet
+  enrichProjectsWithParticipants(): Observable<Project[]> {
+    return forkJoin({
+      projects: this.projectService.getProjectList(),     // Méthode qui retourne les projets
+      users: this.userService.getUserList()              // Méthode qui retourne tous les utilisateurs
+    }).pipe(
+      map(({ projects, users }) => {
+        // Parcourir chaque projet
+        projects.forEach((project: Project) => {
+          // Trouver les utilisateurs qui participent à ce projet
+          const participants = users.filter((user: User) =>
+            Array.from(user.projects).some(userProject => userProject.project_id === project.project_id)
+          );
+
+          // Ajouter les participants au projet
+          project.participants = Array.from(new Set(participants));
+          console.log("projects :", projects);
+          console.log("participants :", participants);
+        });
+        return projects; // Retourner la liste enrichie des projets
+      }),
+      catchError(error => {
+        console.error('Erreur lors de l’enrichissement des projets :', error);
+        return of([]); // Retourner un tableau vide en cas d'erreur
+      })
+    );
+  }
+
+
 
   // mettre à jour un projet (avec l'id)
   public updateProject(id : string){
@@ -95,6 +134,10 @@ export class ProjectListComponent implements OnInit {
   //supprimer une tache
   public deleteTask(id : string){
     this.taskService.deleteTask(id);
+  }
+
+  public updateUser(id : string){
+    this.router.navigate(['update-user', id]);
   }
 }
 
