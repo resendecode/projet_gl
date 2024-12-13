@@ -31,7 +31,7 @@ export class UpdateProjectComponent implements OnInit{
     }, error => console.log(error));
   }
 
-  // lorsque le formulaire est validé mettre a jour le projet et revenir à la page principale
+  // lorsque le formulaire est validé mettre à jour le projet et revenir à la page principale
   onSubmit() {
     this.projectService.updateProject(this.project).subscribe(data => {
       this.goToProjectList();
@@ -41,5 +41,6 @@ export class UpdateProjectComponent implements OnInit{
   // revenir à la page principale
   goToProjectList(){
     this.router.navigate(['/projects']);
+    window.location.reload();
   }
 }

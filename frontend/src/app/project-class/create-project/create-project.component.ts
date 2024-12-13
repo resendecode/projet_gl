@@ -33,7 +33,6 @@ export class CreateProjectComponent implements OnInit{
   // pour formater correctement le projet à envoyer
   toPayload(): any {
     return {
-      project_id: this.project.project_id,
       name: this.project.name,
       done : this.project.done,
       start_date : this.project.startDate,

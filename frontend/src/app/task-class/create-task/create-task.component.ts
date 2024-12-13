@@ -4,7 +4,8 @@ import {Task} from '../task/task';
 import {TaskService} from '../task/task.service';
 import {FormsModule} from '@angular/forms';
 import {ProjectService} from '../../project-class/project/project.service';
-import { v4 as uuidv4 } from 'uuid';
+import {Project} from '../../project-class/project/project';
+import {concatMap} from 'rxjs';
 
 @Component({
   selector: 'app-create-task',
@@ -30,8 +31,8 @@ export class CreateTaskComponent implements OnInit{
     this.route.paramMap.subscribe(params => {
       const projectId = params.get('id');
       if (projectId) {
-        this.task.project_id = projectId;
-        console.log(this.task.project_id);
+        this.task.project.project_id = projectId;
+        console.log("task.project_id", this.task.project.project_id);
       } else console.log("erreur project_id");
     });
   }
@@ -44,42 +45,68 @@ export class CreateTaskComponent implements OnInit{
 
   toPayload(): any {
     return {
-      id: this.task.id, // Ajoutez seulement si nécessaire
       title: this.task.title,
       done: this.task.done,
       description: this.task.description,
-      project_id: this.task.project_id,
+      project_id: this.task.project.project_id,
+      resp_id: 1
     };
   }
 
-  // todo : gros probleme "given id must be not null" dans createTask
   saveTask() {
     const taskPayload = this.toPayload();
     console.log("Payload envoyé au backend", taskPayload);
 
     this.taskService.createTask(taskPayload).subscribe(
-      (data) => {
-        console.log("Tache créée avec succès :", data);
+      (createdTask) => {
+        console.log("Tâche créée avec succès :", createdTask);
+
+        // Mettre à jour les détails de `this.task` avec la réponse du backend
+        this.task.id = createdTask.id; // Récupère l'ID généré
+        this.task.title = createdTask.title;
+        this.task.description = createdTask.description;
+        this.task.done = createdTask.done;
+        this.task.project.project_id = createdTask.project_id;
+        this.task.user_id = createdTask.resp;
+
         this.bindTaskToProject();
+
+        // Naviguer vers la liste des projets
         this.goToProjectList();
       },
-      (error) => console.error("Erreur lors de la création de la tâche :", error)
+      (error) => {
+        console.error("Erreur lors de la création de la tâche :", error);
+      }
     );
   }
 
-  bindTaskToProject(){
-    this.projectService.getProjectByID(this.task.project_id).subscribe(
-      data =>{
-        data.tasks.push(this.task);
-        this.projectService.updateProject(data).subscribe(
-          data=> console.log("tache ajoutée au projet correspondant :", data)
-        )
-      },
-      error => console.log("erreur d'ajout de la tâche au project correspondant", error)
-    )
+
+  bindTaskToProject() {
+    if (!this.task.project.project_id) {
+      console.error("Aucun project_id associé à la tâche !");
+      return;
+    }
+
+    this.projectService.getProjectByID(this.task.project.project_id).pipe(
+      concatMap((project: Project) => {
+        if (!project) {
+          throw new Error("Le projet est introuvable pour l'ID fourni : " + this.task.project.project_id);
+        }
+
+        if (!Array.isArray(project.tasks)) {
+          project.tasks = [];
+        }
+
+        project.tasks = [...project.tasks, this.task];
+        return this.projectService.updateProject(project);
+      })
+    ).subscribe(
+      (updatedProject) => console.log("Tâche ajoutée au projet :", updatedProject),
+      (error) => console.error("Erreur lors de l'ajout de la tâche au projet :", error)
+    );
   }
+
   goToProjectList(){
     this.router.navigate(['/projects']);
-    window.location.reload();
   }
 }

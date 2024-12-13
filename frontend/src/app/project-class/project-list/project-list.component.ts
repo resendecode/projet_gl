@@ -27,6 +27,7 @@ import {FormsModule} from '@angular/forms';
 export class ProjectListComponent implements OnInit {
   projects : Project[] = [];
   allUsers : User[] = [];
+  allTasks : Task[] = [];
   selectedUser : User = new User();
 
   constructor(private projectService : ProjectService,
@@ -39,6 +40,12 @@ export class ProjectListComponent implements OnInit {
   ngOnInit() : void {
     this.userService.getUserList().subscribe(data => {
       this.allUsers = data;
+    }, error => {
+      console.error('Erreur lors de la récupération des utilisateurs :', error);
+    })
+
+    this.taskService.getTaskList().subscribe(data => {
+      this.allTasks = data;
     }, error => {
       console.error('Erreur lors de la récupération des utilisateurs :', error);
     })
@@ -147,7 +154,7 @@ export class ProjectListComponent implements OnInit {
     }
   }
 
-  //obtenir les projects avec leurs tâches
+  // //obtenir les projects avec leurs tâches
   public getProjectsWithTasks(): void {
     this.enrichProjectsWithTasks()
       .subscribe(projects => {
@@ -168,12 +175,12 @@ export class ProjectListComponent implements OnInit {
         // Parcourir chaque projet
         projects.forEach((project: Project) => {
           // Trouver les utilisateurs qui participent à ce projet
-          const participants = tasks.filter((task: Task) =>
-            task.project_id === project.project_id
+          const tasksFiltered = tasks.filter((task: Task) =>
+            task.project.project_id === project.project_id
           );
 
           // Ajouter les participants au projet
-          project.tasks = Array.from(new Set(tasks));
+          project.tasks = Array.from(new Set(tasksFiltered));
           console.log("projects :", projects);
           console.log("tasks :", tasks);
         });
@@ -187,9 +194,9 @@ export class ProjectListComponent implements OnInit {
   }
 
   // mettre à jour un projet (avec l'id)
-  public updateProject(id : string){
-    this.router.navigate(['update-project', id]);
-  }
+    public updateProject(id : string){
+      this.router.navigate(['update-project', id]);
+    }
 
   //supprimer un project (avec l'id)
   public deleteProject(id : string){

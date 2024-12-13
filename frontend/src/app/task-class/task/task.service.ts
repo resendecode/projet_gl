@@ -25,8 +25,7 @@ export class TaskService {
 
   // todo : créer une tâche (marche pas pour l'instant on sait pas pourquoi)
   public createTask(task:Task): Observable<any>{
-    console.log("tache envoyé à la BD", task);
-    return this.http.post<any>(`${this.baseURL}`, task).pipe(
+    return this.http.post<Task>(`${this.baseURL}`, task).pipe(
       catchError((error) => {
         console.error("Erreur dans createTask :", error);
         return of({ success: false, message: "Échec de la création de la tâche" });

@@ -1,11 +1,13 @@
+import {Project} from '../../project-class/project/project';
+
 export class Task{
 
   private _id : string = "";
   private _title : string = "";
   private _description : string = "";
-  private _project_id : string = "";
+  private _project : Project = new Project();
+  private _user_id : string = "";
   private _done : boolean = false;
-  private messages : string[] = [];
 
   constructor() {
   }
@@ -37,11 +39,22 @@ export class Task{
   set done(done : boolean){
     this._done = done;
   }
-  get project_id(): string {
-    return this._project_id;
+
+  get project(): Project {
+    return this._project;
   }
 
-  set project_id(value: string) {
-    this._project_id = value;
+  set project(value: Project) {
+    this._project = value;
   }
+
+
+  get user_id(): string {
+    return this._user_id;
+  }
+
+  set user_id(value: string) {
+    this._user_id = value;
+  }
+
 }
