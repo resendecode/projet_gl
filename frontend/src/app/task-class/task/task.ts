@@ -5,6 +5,7 @@ export class Task{
   private _description : string = "";
   private _project_id : string = "";
   private _done : boolean = false;
+  private messages : string[] = [];
 
   constructor() {
   }

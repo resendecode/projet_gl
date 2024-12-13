@@ -47,3 +47,7 @@
   background: #468CCF;
   background: linear-gradient(to top, #468CCF, #63B8EE);
 }
+
+div {
+  margin: 10px;
+}

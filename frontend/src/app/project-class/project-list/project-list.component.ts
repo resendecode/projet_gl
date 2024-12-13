@@ -209,6 +209,7 @@ export class ProjectListComponent implements OnInit {
     this.taskService.deleteTask(id);
   }
 
+  //todo : mettre à jour un utilisateur (son profil)
   public updateUser(id : string){
     this.router.navigate(['update-user', id]);
   }
