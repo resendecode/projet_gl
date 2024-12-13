@@ -13,7 +13,7 @@
     <ul><strong>Deadline :</strong> {{ project.deadline }}</ul>
 
   <ol><strong> List of the project's tasks :</strong>
-    <button id="addTkBtn" routerLink="create-task" routerLinkActive="active" class="btn btn-success">➕</button>
+    <button id="addTkBtn" routerLink="{{project.project_id}}/create-task" routerLinkActive="active" class="btn btn-success">➕</button>
     <ul *ngFor="let task of project.tasks">
         <ul>
           <strong>Title :</strong> {{ task.title }}
@@ -26,10 +26,16 @@
 
     </ul>
   </ol>
-  <ol><strong> List of the project's participants :</strong>
-    <li *ngFor="let u of project.participants">
-      <p><strong>Name :</strong> {{ u.name }}</p>
-      <p><strong>Email :</strong> {{ u.email }}</p>
-    </li>
+  <ol><strong> List of the project's participants : </strong>
+      <label for="user-select"> Add a particpant :</label>
+      <select id="user-select" [(ngModel)]="selectedUser">
+        <option *ngFor="let user of allUsers" [ngValue]="user">{{ user.name }}</option>
+      </select>
+    <button (click)="addUserToProject(project.project_id)" class="btn ">➕</button>
+    <ul *ngFor="let u of project?.participants ?? []">
+      <ul>
+        <p>{{ u.name }} ({{ u.email }}) </p>
+      </ul>
+    </ul>
   </ol>
 </menu>

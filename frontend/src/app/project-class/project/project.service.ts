@@ -1,7 +1,9 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {catchError, Observable, of} from 'rxjs';
+import {catchError, forkJoin, map, Observable, of} from 'rxjs';
 import {Project} from './project';
+import {User} from '../../user-class/user/user'
+import {UserService} from '../../user-class/user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,11 @@ export class ProjectService {
 
   private readonly baseURLp : string = "http://localhost:8080/projects";
   private readonly baseURLt : string = "http://localhost:8080/tasks";
+  private readonly baseURLassoc : string = "http://localhost:8080/add";
   private http = inject(HttpClient);
+
+  constructor(private userService : UserService) {
+  }
 
   // obtenir la liste des projets
   public getProjectList() : Observable<Project[]>{
@@ -43,4 +49,7 @@ export class ProjectService {
     return this.http.delete(`${this.baseURLp}/${id}`);
   }
 
+  public saveParticipantsProject(projet_id: string, user_id: string){
+    return this.http.post(`${this.baseURLassoc}/${user_id}/${projet_id}`, null);
+  }
 }

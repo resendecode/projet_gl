@@ -14,8 +14,9 @@ export const routes: Routes = [
   {path : 'projects/create-project', component:CreateProjectComponent}, //idem
   {path : 'update-project/:id', component:UpdateProjectComponent}, // idem
   {path : 'update-task/:id', component: UpdateTaskComponent}, // i
-  {path : 'projects/create-task', component:CreateTaskComponent}, // i
+  {path : 'projects/:id/create-task', component:CreateTaskComponent}, // i
   {path : 'auth/login', component:LoginComponent},
   {path : 'create-user', component:CreateUserComponent},
+  {path : 'update-user/:id', component:CreateUserComponent},
   {path : '', component:LandpageComponent}
 ];

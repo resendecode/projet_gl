@@ -9,10 +9,10 @@ import {User} from './user';
 export class UserService {
 
   private readonly baseURL : string = "http://localhost:8080/users";
-  private readonly baseURLassoc : string = "http://localhost:8080/project_participants";
+  private readonly baseURLassoc : string = "http://localhost:8080/add";
   private http = inject(HttpClient);
 
-  // get tout les utilisateurs
+  // get tous les utilisateurs
   getUserList(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseURL}`).pipe(
       tap(users => console.log("Données brutes reçues :", users)),
@@ -33,12 +33,7 @@ export class UserService {
     return this.http.get<User>(`${this.baseURL}/${id}`);
   }
 
-  // todo : obtenir les utilisateurs pour chaque projets
-  public getUsersByProjectID(id:string) : Observable<User[]>{
-    return this.http.get<User[]>(`${this.baseURLassoc}?project_id=${id}`);
-  }
-
-  // todo : mettre a jour un utilisteur (maj profil)
+  // todo : mettre a jour un utilisateur (maj profil)
   public updateUser(id: string, user : User):Observable<Object> {
     return this.http.put(`${this.baseURL}/${id}`, user);
   }
@@ -46,4 +41,5 @@ export class UserService {
   // todo : supprimer un utilisateur (supprimer son compte)
   public deleteUser(id : string ):Observable<Object>{
     return this.http.delete(`${this.baseURL}/${id}`);
-  }}
+  }
+}

@@ -23,6 +23,7 @@ class UserController {
     this.projectRepository = projectRepository;
     this.userService = userService;
   }
+
   // Aggregate root
   @GetMapping("/users")
   List<AppUser> all() {
@@ -32,12 +33,14 @@ class UserController {
   AppUser newUser(@RequestBody AppUser newUser) {
     return repository.save(newUser);
   }
+
   // Single item
   @GetMapping("/users/{id}")
   AppUser one(@PathVariable Long id) {
     return repository.findById(id)
         .orElse(null);
   }
+
   //todo: cet endpoint pourrait être (devrait être) ailleur mais il n'y a pas assez
   // de méthodes exterieures pour le justifier
   // méthode s'en servant du dto
@@ -45,6 +48,7 @@ class UserController {
   public void setUserProject(@RequestBody ProjectUserDTO dto){
     userService.addProject(dto.getUser_id(), dto.getProject_id());
   }
+
   //méthode en passant les paramètres par path
   @PostMapping("/add/{idu}/{idp}")
   public void setUserProject(@PathVariable Long idu, @PathVariable Long idp){

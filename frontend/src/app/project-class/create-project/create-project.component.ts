@@ -30,6 +30,7 @@ export class CreateProjectComponent implements OnInit{
     this.goToProjectList();
   }
 
+  // pour formater correctement le projet à envoyer
   toPayload(): any {
     return {
       project_id: this.project.project_id,
@@ -61,5 +62,6 @@ export class CreateProjectComponent implements OnInit{
   // retourner à la page principale
   goToProjectList(){
     this.router.navigate(['/projects']);
+    window.location.reload();
   }
 }
