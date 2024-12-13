@@ -52,8 +52,7 @@ public class Task {
     this.project = project;
   }
 
-  public Task(Long id, String title, String description, boolean done, AppUser usr, Project pj) {
-    this.id = id;
+  public Task( String title, String description, boolean done, AppUser usr, Project pj) {
     this.title = title;
     this.description = description;
     this.done = done;

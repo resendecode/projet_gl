@@ -38,8 +38,8 @@ public class ProjetGlApplication {
 
 		AppUser usr2 = new AppUser("snoop", "snoop_dogg@shkex.fum","pasdor", UserRole.USER);
 		userService.saveUser(usr2);
-		Project pj = new Project(1L, "test", "test", false, LocalDate.now(), LocalDate.now());
-		Task tsk = new Task(1L, "test", "test", false, usr, pj);
+		Project pj = new Project( "testproject", "test", false, LocalDate.now(), LocalDate.now());
+		Task tsk = new Task("testtask", "test", false, usr, pj);
 		projectService.saveProject(pj);
 		taskService.saveTask(tsk, usr.getUser_id(), pj.getProject_id());
 		userService.addProject(usr2.getUser_id(), pj.getProject_id());

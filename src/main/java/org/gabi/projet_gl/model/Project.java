@@ -71,7 +71,7 @@ public class Project {
 
 
 
-  public Project(Long project_id,
+  public Project(
                  String name,
                  String description,
                  boolean done,
