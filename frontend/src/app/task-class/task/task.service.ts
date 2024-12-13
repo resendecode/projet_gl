@@ -12,6 +12,7 @@ export class TaskService {
   private readonly baseURL : string = "http://localhost:8080/tasks";
   private http = inject(HttpClient);
 
+  //obtenir toutes les taches
   getTaskList() : Observable<Task[]> {
     return this.http.get<Task[]>(`${this.baseURL}`).pipe(
       catchError(error => {
@@ -22,12 +23,13 @@ export class TaskService {
     );
   }
 
-  // todo : creer une tâche (marche pas pour l'instant)
+  // todo : créer une tâche (marche pas pour l'instant on sait pas pourquoi)
   public createTask(task:Task): Observable<any>{
+    console.log("tache envoyé à la BD", task);
     return this.http.post<any>(`${this.baseURL}`, task).pipe(
       catchError((error) => {
         console.error("Erreur dans createTask :", error);
-        return throwError(error);
+        return of({ success: false, message: "Échec de la création de la tâche" });
       })
     );
   }

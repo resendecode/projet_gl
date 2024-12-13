@@ -26,10 +26,14 @@
 
     </ul>
   </ol>
-  <ol><strong> List of the project's participants :</strong>
-    <ul *ngFor="let u of project.participants">
+  <ol><strong> List of the project's participants : </strong>
+      <label for="user-select"> Add a particpant :</label>
+      <select id="user-select" [(ngModel)]="selectedUser">
+        <option *ngFor="let user of allUsers" [ngValue]="user">{{ user.name }}</option>
+      </select>
+    <button (click)="addUserToProject(project.project_id)" class="btn ">➕</button>
+    <ul *ngFor="let u of project?.participants ?? []">
       <ul>
-        <button (click)="updateUser(u.user_id)" class="btn btn-info">✏</button>
         <p>{{ u.name }} ({{ u.email }}) </p>
       </ul>
     </ul>

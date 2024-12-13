@@ -33,7 +33,7 @@ export class UserService {
     return this.http.get<User>(`${this.baseURL}/${id}`);
   }
 
-  // todo : mettre a jour un utilisteur (maj profil)
+  // todo : mettre a jour un utilisateur (maj profil)
   public updateUser(id: string, user : User):Observable<Object> {
     return this.http.put(`${this.baseURL}/${id}`, user);
   }

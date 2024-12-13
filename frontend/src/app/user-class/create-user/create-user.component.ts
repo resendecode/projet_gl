@@ -80,5 +80,6 @@ export class CreateUserComponent implements OnInit{
 
   goToProjectList(){
     this.router.navigate(['/projects']);
+    window.location.reload();
   }
 }

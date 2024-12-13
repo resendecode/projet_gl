@@ -4,6 +4,7 @@ import {Task} from '../task/task';
 import {TaskService} from '../task/task.service';
 import {FormsModule} from '@angular/forms';
 import {ProjectService} from '../../project-class/project/project.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-create-task',
@@ -43,25 +44,26 @@ export class CreateTaskComponent implements OnInit{
 
   toPayload(): any {
     return {
+      id: this.task.id, // Ajoutez seulement si nécessaire
       title: this.task.title,
-      done : this.task.done,
-      description : this.task.description,
-      project_id : this.task.project_id,
+      done: this.task.done,
+      description: this.task.description,
+      project_id: this.task.project_id,
     };
   }
 
   // todo : gros probleme "given id must be not null" dans createTask
   saveTask() {
     const taskPayload = this.toPayload();
-    delete taskPayload.id;
     console.log("Payload envoyé au backend", taskPayload);
 
     this.taskService.createTask(taskPayload).subscribe(
-      (data )=> {
-        console.log("Tache créé avec succès :", data);
+      (data) => {
+        console.log("Tache créée avec succès :", data);
         this.bindTaskToProject();
         this.goToProjectList();
-      }
+      },
+      (error) => console.error("Erreur lors de la création de la tâche :", error)
     );
   }
 

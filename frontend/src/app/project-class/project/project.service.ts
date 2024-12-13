@@ -12,6 +12,7 @@ export class ProjectService {
 
   private readonly baseURLp : string = "http://localhost:8080/projects";
   private readonly baseURLt : string = "http://localhost:8080/tasks";
+  private readonly baseURLassoc : string = "http://localhost:8080/add";
   private http = inject(HttpClient);
 
   constructor(private userService : UserService) {
@@ -48,5 +49,7 @@ export class ProjectService {
     return this.http.delete(`${this.baseURLp}/${id}`);
   }
 
-
+  public saveParticipantsProject(projet_id: string, user_id: string){
+    return this.http.post(`${this.baseURLassoc}/${user_id}/${projet_id}`, null);
+  }
 }
